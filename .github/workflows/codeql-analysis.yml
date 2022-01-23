@@ -55,9 +55,11 @@ jobs:
 
     # Autobuild attempts to build any compiled languages  (C/C++, C#, or Java).
     # If this step fails, then you should remove it and run the build manually (see below)
+
     - name: Build
-      run: mvn -B clean package
+      run: mvn --settings settings.xml clean install
       env:
+        GITHUB_USERNAME: x-access-token
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     # ℹ️ Command-line programs to run using the OS shell.
