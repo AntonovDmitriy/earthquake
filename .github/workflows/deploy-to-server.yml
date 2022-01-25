@@ -24,4 +24,5 @@ jobs:
           SSH_HOST: ${{ secrets.STAGING_SSH_HOST }}
 
       - name: Stop the server
-        run: ssh staging 'docker --version'
+        run: ssh staging 'export GPG_TTY=$(tty) && docker login docker.pkg.github.com/antonovdmitriy/earthquake &&
+        docker pull docker.pkg.github.com/antonovdmitriy/earthquake/earthquake-image:latest && docker run earthquake-image:latest '
