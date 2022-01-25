@@ -25,4 +25,4 @@ jobs:
 
       - name: Stop the server
         run: | 
-        ssh staging 'export GPG_TTY=$(tty) && docker login docker.pkg.github.com/antonovdmitriy/earthquake --username=${{ secrets.USERNAME_FOR_DOCKER_AUTH }} --password=${{ secrets.TOKEN_FOR_DOCKER_AUTH }}  && docker pull docker.pkg.github.com/antonovdmitriy/earthquake/earthquake-image:latest && docker run earthquake-image:latest '
+        "ssh staging 'export GPG_TTY=$(tty) && docker login docker.pkg.github.com/antonovdmitriy/earthquake --username=${{ secrets.USERNAME_FOR_DOCKER_AUTH }} --password=${{ secrets.TOKEN_FOR_DOCKER_AUTH }}  && docker pull docker.pkg.github.com/antonovdmitriy/earthquake/earthquake-image:latest && docker run earthquake-image:latest '"
