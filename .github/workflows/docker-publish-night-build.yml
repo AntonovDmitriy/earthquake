@@ -1,8 +1,10 @@
-name: Docker publish release
+name: Docker publish night build
 
 on:
-  release:
-    types: [created]
+  push:
+    branches:
+      - 'develop'
+  workflow_dispatch:
 
 jobs:
   build:
@@ -39,8 +41,7 @@ jobs:
         push: true
         tags: |
           docker.pkg.github.com/${{ github.repository }}/earthquake-image:${{ github.sha }}
-          docker.pkg.github.com/${{ github.repository }}/earthquake-image:latest
-          docker.pkg.github.com/${{ github.repository }}/earthquake-image:${{ github.event.release.tag_name }
+          docker.pkg.github.com/${{ github.repository }}/earthquake-image:nightbuild
     
       
       
