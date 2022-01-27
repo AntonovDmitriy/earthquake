@@ -1,4 +1,4 @@
-name: deploy to server
+name: deploy image to server by manual trigger
 on:
   workflow_dispatch:
     inputs:

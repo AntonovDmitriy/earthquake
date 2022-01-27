@@ -1,0 +1,18 @@
+name: deploy nightbuild image to server on push to develop
+on:
+  push:
+    branches:
+      - 'develop'
+jobs:
+  call-workflow-generic-deploy-image-to-server:
+    uses: ./.github/workflows/generic-deploy-image-to-server.yml
+    with:
+      hostname: "mactep.info"
+      image: "earthquake-image"
+      label: "nightbuild"
+      container_name: "event-reader-nightbuild"
+      repository: docker.pkg.github.com/antonovdmitriy/earthquake
+    secrets:
+      ssh_user: ${{ secrets.STAGING_SSH_USER }}
+      ssh_key: ${{ secrets.STAGING_SSH_KEY }}
+      token_for_docker_auth: ${{ secrets.TOKEN_FOR_DOCKER_AUTH }}
