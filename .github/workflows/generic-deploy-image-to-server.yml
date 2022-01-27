@@ -1,0 +1,54 @@
+name: deploy docker image to server
+on:
+  workflow_call:
+    inputs:
+      hostname:
+        required: true
+        type: string
+      image:
+        required: true
+        type: string
+      label:
+        required: true
+        type: string
+      container_name:
+        required: true
+        type: string
+      repository:
+        required: true
+        type: string
+    secrets:
+      ssh_user:
+        required: true
+      ssh_key:
+        required: true
+      token_for_docker_auth:
+        required: true
+jobs:
+  deploy:
+    name: "Deploy to staging"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to staging
+        uses: appleboy/ssh-action@v0.1.4
+        with:
+          host:  ${{ inputs.hostname }}
+          username: ${{ secrets.ssh_user }}
+          key: ${{ secrets.ssh_key }}
+          script: |
+            container_name='${{ inputs.container_name }}'
+            image='${{ inputs.image }}'
+            label='${{ inputs.label }}'
+            user_name_for_docker='${{ github.repository_owner }}'  
+            token_for_docker='${{ secrets.token_for_docker_auth }}'
+            repository='${{ inputs.repository }}'
+            # Stop running container
+            docker stop $container_name
+            # Remove old container
+            docker rm $container_name  
+            # Login to Github Container Registry
+            docker login $repository -u $user_name_for_docker -p $token_for_docker
+            # Pull the Docker Image 
+            docker pull $repository/$image:$label
+            # Run a new container from a new image
+            docker run -d --name $container_name $repository/$image:$label
