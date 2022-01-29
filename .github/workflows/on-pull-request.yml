@@ -6,7 +6,7 @@ on:
       - '*'
 
 jobs:
-  build:
+  build-with-test-coverage-and-sonar:
     runs-on: ubuntu-18.04
     permissions:
       security-events: write
