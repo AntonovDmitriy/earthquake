@@ -1,0 +1,34 @@
+name: Generic build maven with test coverage and sonar and codeql
+description: 'Generic build maven with test coverage and sonar and codeql'
+
+inputs:
+  github_token:
+    description: 'github token'
+    required: true
+  context:
+    description: 'path to folder when docker file is exists'
+    required: true
+  image_name:
+    description: 'name for new docker image'
+    required: true
+  label:
+    description: 'image label'
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Log in to GitHub Docker Registry
+      uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+      with:
+        registry: docker.pkg.github.com
+        username: ${{ github.actor }}
+        password: ${{ inputs.github_token }}
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v2
+      with:
+        context: ${{ inputs.context }}
+        push: true
+        tags: |
+          docker.pkg.github.com/${{ github.repository }}/${{ inputs.image_name }}:${{ github.sha }}
+          docker.pkg.github.com/${{ github.repository }}/${{ inputs.image_name }}:${{ inputs.label }}
