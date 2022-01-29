@@ -1,17 +1,7 @@
-name: Build
+name: Generic build maven with test coverage and sonar
 
-on:
-  pull_request:
-    branches:
-      - '*'
-  push:
-    branches:
-      - 'master'
-      - 'develop'
-
-jobs:
-  build:
-    runs-on: ubuntu-18.04
+runs:
+  using: "composite"
     steps:
       - uses: actions/checkout@v2
       - name: set up JDK 11

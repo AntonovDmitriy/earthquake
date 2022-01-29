@@ -1,10 +1,6 @@
 name: Docker publish night build
-
 on:
-  push:
-    branches:
-      - 'develop'
-  workflow_dispatch:
+  workflow_call:
 
 jobs:
   build:

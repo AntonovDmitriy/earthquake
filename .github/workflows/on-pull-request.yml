@@ -1,0 +1,13 @@
+name: Build with test coverage and sonar
+
+on:
+  pull_request:
+    branches:
+      - '*'
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Generic build maven with test coverage and sonar
+        uses: ./.github/actions/generic-build-maven-with-test-coverage-and-sonar.yml
