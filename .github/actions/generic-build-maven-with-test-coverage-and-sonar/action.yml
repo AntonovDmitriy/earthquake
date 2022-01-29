@@ -1,6 +1,17 @@
 name: Generic build maven with test coverage and sonar
 description: 'Generic build maven with test coverage and sonar'
 
+inputs:
+  sonar_token:
+    description: 'Sonar token'
+    required: true
+  github_token:
+    description: 'github token'
+    required: true
+  codecov_token:
+    description: 'Sonar token'
+    required: true
+
 runs:
   using: "composite"
   steps:
@@ -11,12 +22,12 @@ runs:
         java-version: 11
         distribution: 'temurin'
     - name: SonarCloud Scan
-      run: mvn -B clean verify -Pcoverage,sonar -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+      run: mvn -B clean verify -Pcoverage,sonar -Dsonar.login=${{ inputs.sonar_token }}
       shell: bash
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ inputs.github_token }}
     - name: Test Coverage
       uses: codecov/codecov-action@v2
       with:
-        token: ${{ secrets.CODECOV_TOKEN }}
+        token: ${{ inputs.codecov_token }}
         files: ./target/site/jacoco-aggregate/jacoco.xml

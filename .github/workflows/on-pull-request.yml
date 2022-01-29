@@ -12,3 +12,7 @@ jobs:
       - uses: actions/checkout@v1
       - name: Generic build maven with test coverage and sonar
         uses: ./.github/actions/generic-build-maven-with-test-coverage-and-sonar/
+        with:
+          sonar_token: ${{ secrets.SONAR_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          codecov_token: ${{ secrets.CODECOV_TOKEN }}
