@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - 'develop'
+# Не работают ссылки на env. Тикет. возможно починят https://github.com/actions/runner/issues/480
+# поэтому приходится дублировать значения
 env:
   LABEL: "nightbuild"
   IMAGE_NAME: "earthquake-image"
@@ -29,15 +31,16 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           context: ./event-reader
-          image_name: ${{ env.IMAGE_NAME }}
-          label: ${{ env.LABEL }}
+          image_name: earthquake-image
+          label: nightbuild
   deploy-image-to-server:
+    needs: build-and-push-image-to-registry
     uses: ./.github/workflows/generic-deploy-image-to-server.yml
     with:
       hostname: "mactep.info"
-      image: ${{ env.IMAGE_NAME }}
-      label: ${{ env.LABEL }}
-      container_name: ${{ env.IMAGE_NAME }}:${{ env.LABEL }}
+      image: earthquake-image
+      label: nightbuild
+      container_name: earthquake-image:nightbuild
       repository: docker.pkg.github.com/antonovdmitriy/earthquake
     secrets:
       ssh_user: ${{ secrets.STAGING_SSH_USER }}
