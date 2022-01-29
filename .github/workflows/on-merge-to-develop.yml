@@ -1,0 +1,45 @@
+name: Build with test coverage and sonar
+
+on:
+  push:
+    branches:
+      - 'develop'
+env:
+  LABEL: "nightbuild"
+  IMAGE_NAME: "earthquake-image"
+  APP_VERSION: "1.0.O"
+
+jobs:
+  build-and-push-image-to-registry:
+    runs-on: ubuntu-18.04
+    permissions:
+      security-events: write
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v1
+      - name: Build maven with test coverage and sonar
+        uses: ./.github/actions/generic-build-maven-with-test-coverage-and-sonar/
+        with:
+          sonar_token: ${{ secrets.SONAR_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          codecov_token: ${{ secrets.CODECOV_TOKEN }}
+      - name: Create docker image nightbuild and push to registry
+        uses: ./.github/actions/build-image-and-push-to-registry/
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          context: ./event-reader
+          image_name: ${{ env.IMAGE_NAME }}
+          label: ${{ env.LABEL }}
+  deploy-image-to-server:
+    uses: ./.github/workflows/generic-deploy-image-to-server.yml
+    with:
+      hostname: "mactep.info"
+      image: ${{ env.IMAGE_NAME }}
+      label: ${{ env.LABEL }}
+      container_name: ${{ env.IMAGE_NAME }}:${{ env.LABEL }}
+      repository: docker.pkg.github.com/antonovdmitriy/earthquake
+    secrets:
+      ssh_user: ${{ secrets.STAGING_SSH_USER }}
+      ssh_key: ${{ secrets.STAGING_SSH_KEY }}
+      token_for_docker_auth: ${{ secrets.TOKEN_FOR_DOCKER_AUTH }}
