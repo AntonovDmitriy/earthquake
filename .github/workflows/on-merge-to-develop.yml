@@ -40,7 +40,7 @@ jobs:
       hostname: "mactep.info"
       image: earthquake-image
       label: nightbuild
-      container_name: earthquake-image:nightbuild
+      container_name: earthquake-image_nightbuild
       repository: docker.pkg.github.com/antonovdmitriy/earthquake
     secrets:
       ssh_user: ${{ secrets.STAGING_SSH_USER }}
