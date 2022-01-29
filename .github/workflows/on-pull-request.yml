@@ -8,6 +8,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-18.04
+    permissions:
+      security-events: write
     steps:
       - uses: actions/checkout@v1
       - name: Generic build maven with test coverage and sonar
