@@ -20,16 +20,9 @@ jobs:
     uses: ./.github/workflows/generic-deploy-image-to-server.yml
     with:
       hostname: "mactep.info"
-      image: earthquake-image
       container_name: earthquake-event-reader
-      #      label: ${{ github.event.registry_package.package_version.tag_name }}
-      label: ${{ github.event.package.id }}
-      label2: ${{ github.action }}
-      label3: ${{ github.event_name }}
-      label4: ${{ github.event.package.package_version.version }}
-      label5: ${{ github.event.package.tag_name }}
-
-      repository: docker.pkg.github.com/antonovdmitriy/earthquake
+      full_image_path: ${{ github.event.registry_package.package_version.package_url }}
+      repository: ${{ github.event.registry_package.registry.url }}
     secrets:
       ssh_user: ${{ secrets.STAGING_SSH_USER }}
       ssh_key: ${{ secrets.STAGING_SSH_KEY }}
