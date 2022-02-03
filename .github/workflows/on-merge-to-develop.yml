@@ -29,7 +29,7 @@ jobs:
       - name: Create docker image nightbuild and push to registry
         uses: ./.github/actions/build-image-and-push-to-registry/
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.TOKEN_FOR_DOCKER_AUTH }}
           context: ./event-reader
           image_name: earthquake-image
 #          label: nightbuild
