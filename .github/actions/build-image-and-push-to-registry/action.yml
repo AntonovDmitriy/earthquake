@@ -11,13 +11,15 @@ inputs:
   image_name:
     description: 'name for new docker image'
     required: true
-  label:
-    description: 'image label'
-    required: true
 
 runs:
   using: "composite"
   steps:
+    - name: Docker compute meta info
+      id: meta
+      uses: docker/metadata-action@v3
+      with:
+        images: docker.pkg.github.com/${{ github.repository }}/${{ inputs.image_name }}
     - name: Log in to GitHub Docker Registry
       uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
       with:
@@ -29,6 +31,5 @@ runs:
       with:
         context: ${{ inputs.context }}
         push: true
-        tags: |
-          docker.pkg.github.com/${{ github.repository }}/${{ inputs.image_name }}:${{ github.sha }}
-          docker.pkg.github.com/${{ github.repository }}/${{ inputs.image_name }}:${{ inputs.label }}
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
