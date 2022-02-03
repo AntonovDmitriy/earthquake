@@ -1,4 +1,4 @@
-name: Build with test coverage and sonar
+name: Deploy on server on new image
 
 on:
   release:
