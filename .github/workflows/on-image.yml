@@ -11,7 +11,8 @@ jobs:
       hostname: "mactep.info"
       image: earthquake-image
       container_name: earthquake-event-reader
-      label: ${{ github.event.registry_package.package_version.tag_name }}
+#      label: ${{ github.event.registry_package.package_version.tag_name }}
+      label: ${{ github.event.id }}
       repository: docker.pkg.github.com/antonovdmitriy/earthquake
     secrets:
       ssh_user: ${{ secrets.STAGING_SSH_USER }}
