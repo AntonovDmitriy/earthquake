@@ -1,4 +1,4 @@
-name: Deploy on server on new image
+name: On new release
 
 on:
   release:
@@ -25,16 +25,3 @@ jobs:
           github_token: ${{ secrets.TOKEN_FOR_DOCKER_AUTH }}
           context: ./event-reader
           image_name: earthquake-image
-#          label: latest github.ref_name
-#  deploy-image-to-server:
-#    needs: build-and-push-image-to-registry
-#    uses: ./.github/workflows/generic-deploy-image-to-server.yml
-#    with:
-#      hostname: "mactep.info"
-#      image: earthquake-image
-#      container_name: earthquake-image-nightbuild
-#      repository: docker.pkg.github.com/antonovdmitriy/earthquake
-#    secrets:
-#      ssh_user: ${{ secrets.STAGING_SSH_USER }}
-#      ssh_key: ${{ secrets.STAGING_SSH_KEY }}
-#      token_for_docker_auth: ${{ secrets.TOKEN_FOR_DOCKER_AUTH }}

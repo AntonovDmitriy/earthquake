@@ -1,4 +1,4 @@
-name: Build with test coverage and sonar
+name: On image
 
 on:
   registry_package:
