@@ -2,16 +2,27 @@ name: Build with test coverage and sonar
 
 on:
   registry_package:
-    types: [published, updated]
+    types: [ published, updated ]
 
 jobs:
+  debug-job:
+    name: Print event
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: |
+          echo "$GITHUB_CONTEXT"
+      - name: invoke debug action
+        uses: hmarr/debug-action@v2
   deploy-image-to-server:
     uses: ./.github/workflows/generic-deploy-image-to-server.yml
     with:
       hostname: "mactep.info"
       image: earthquake-image
       container_name: earthquake-event-reader
-#      label: ${{ github.event.registry_package.package_version.tag_name }}
+      #      label: ${{ github.event.registry_package.package_version.tag_name }}
       label: ${{ github.event.package.id }}
       label2: ${{ github.action }}
       label3: ${{ github.event_name }}
