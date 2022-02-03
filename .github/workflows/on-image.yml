@@ -1,0 +1,19 @@
+name: Build with test coverage and sonar
+
+on:
+  registry_package:
+    types: [published, updated]
+
+jobs:
+  deploy-image-to-server:
+    uses: ./.github/workflows/generic-deploy-image-to-server.yml
+    with:
+      hostname: "mactep.info"
+      image: earthquake-image
+      container_name: earthquake-event-reader
+      label: ${{ github.event.registry_package.package_version.tag_name }}
+      repository: docker.pkg.github.com/antonovdmitriy/earthquake
+    secrets:
+      ssh_user: ${{ secrets.STAGING_SSH_USER }}
+      ssh_key: ${{ secrets.STAGING_SSH_KEY }}
+      token_for_docker_auth: ${{ secrets.TOKEN_FOR_DOCKER_AUTH }}
