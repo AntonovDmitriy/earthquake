@@ -1,11 +1,8 @@
-name: generic deploy docker image to server
+name: deploy docker image to server
 on:
   workflow_call:
     inputs:
       hostname:
-        required: true
-        type: string
-      image:
         required: true
         type: string
       full_image_path:

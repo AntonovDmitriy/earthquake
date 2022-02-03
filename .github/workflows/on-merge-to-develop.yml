@@ -1,15 +1,9 @@
-name: Build and deploy nightbuild
+name: On merge pull request to develop
 
 on:
   push:
     branches:
       - 'develop'
-# Не работают ссылки на env. Тикет. возможно починят https://github.com/actions/runner/issues/480
-# поэтому приходится дублировать значения
-env:
-  LABEL: "nightbuild"
-  IMAGE_NAME: "earthquake-image"
-  APP_VERSION: "1.0.O"
 
 jobs:
   build-and-push-image-to-registry:
@@ -32,17 +26,3 @@ jobs:
           github_token: ${{ secrets.TOKEN_FOR_DOCKER_AUTH }}
           context: ./event-reader
           image_name: earthquake-image
-#          label: nightbuild
-#  deploy-image-to-server:
-#    needs: build-and-push-image-to-registry
-#    uses: ./.github/workflows/generic-deploy-image-to-server.yml
-#    with:
-#      hostname: "mactep.info"
-#      image: earthquake-image
-#      label: nightbuild
-#      container_name: earthquake-image-nightbuild
-#      repository: docker.pkg.github.com/antonovdmitriy/earthquake
-#    secrets:
-#      ssh_user: ${{ secrets.STAGING_SSH_USER }}
-#      ssh_key: ${{ secrets.STAGING_SSH_KEY }}
-#      token_for_docker_auth: ${{ secrets.TOKEN_FOR_DOCKER_AUTH }}
