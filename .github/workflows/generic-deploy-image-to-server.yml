@@ -11,6 +11,18 @@ on:
       label:
         required: true
         type: string
+      label2:
+        required: true
+        type: string
+      label3:
+        required: true
+        type: string
+      label4:
+        required: true
+        type: string
+      label5:
+        required: true
+        type: string
       container_name:
         required: true
         type: string
