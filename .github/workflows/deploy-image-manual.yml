@@ -1,0 +1,39 @@
+name: On image
+
+on:
+  workflow_dispatch:
+    inputs:
+      hostname:
+        description: 'server hostname'
+        required: true
+        default: '"mactep.info"'
+      container-name:
+        description: 'container name'
+        required: true
+        default: 'earthquake-event-reader-nightbuild'
+      image-with-label:
+        description: 'image:label'
+        required: true
+        default: 'earthquake-image:develop'
+      docker-registry:
+        description: 'docker registry'
+        required: true
+        default: 'docker.pkg.github.com/antonovdmitriy/earthquake'
+
+
+jobs:
+  debug:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: hmarr/debug-action@v2
+  deploy-image-to-server:
+    uses: ./.github/workflows/generic-deploy-image-to-server.yml
+    with:
+      hostname: ${{ github.event.inputs.hostname }}
+      container_name: ${{ github.event.inputs.container-name }}
+      full_image_path: ${{ github.event.inputs.docker-registry }}/${{ github.event.inputs.image-with-label }}
+      repository: https://${{ github.event.inputs.docker-registry }}
+    secrets:
+      ssh_user: ${{ secrets.STAGING_SSH_USER }}
+      ssh_key: ${{ secrets.STAGING_SSH_KEY }}
+      token_for_docker_auth: ${{ secrets.TOKEN_FOR_DOCKER_AUTH }}

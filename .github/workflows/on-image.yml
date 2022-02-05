@@ -5,17 +5,6 @@ on:
     types: [ published, updated ]
 
 jobs:
-  debug-job:
-    name: Print event
-    runs-on: ubuntu-latest
-    steps:
-      - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: |
-          echo "$GITHUB_CONTEXT"
-      - name: invoke debug action
-        uses: hmarr/debug-action@v2
   deploy-image-to-server:
     uses: ./.github/workflows/generic-deploy-image-to-server.yml
     with:
