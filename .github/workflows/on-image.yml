@@ -1,4 +1,4 @@
-name: On image
+name: On image from develop
 
 on:
   registry_package:
@@ -7,6 +7,7 @@ on:
 jobs:
   deploy-image-to-server:
     uses: ./.github/workflows/generic-deploy-image-to-server.yml
+    if: ${{ github.event.registry_package.target_commitish == 'develop' }}
     with:
       hostname: "mactep.info"
       container_name: earthquake-event-reader

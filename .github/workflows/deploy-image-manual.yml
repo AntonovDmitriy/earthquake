@@ -1,4 +1,4 @@
-name: On image
+name: Manual deploy image to server
 
 on:
   workflow_dispatch:
@@ -6,7 +6,7 @@ on:
       hostname:
         description: 'server hostname'
         required: true
-        default: '"mactep.info"'
+        default: 'mactep.info'
       container-name:
         description: 'container name'
         required: true
@@ -19,7 +19,6 @@ on:
         description: 'docker registry'
         required: true
         default: 'docker.pkg.github.com/antonovdmitriy/earthquake'
-
 
 jobs:
   debug:

@@ -1,4 +1,4 @@
-name: On merge pull request to develop
+name: build docker image
 
 on:
   push:
