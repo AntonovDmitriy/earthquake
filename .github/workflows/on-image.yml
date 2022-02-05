@@ -11,6 +11,7 @@ jobs:
       - uses: hmarr/debug-action@v2
   deploy-image-to-server:
     uses: ./.github/workflows/generic-deploy-image-to-server.yml
+
     with:
       hostname: "mactep.info"
       container_name: ${{ format('earthquake-event-reader-{0}', github.event.registry_package.package_version.version) }}
