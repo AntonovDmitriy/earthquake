@@ -5,9 +5,13 @@ on:
     types: [ published, updated ]
 
 jobs:
+  debug:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: hmarr/debug-action@v2
   deploy-image-to-server:
     uses: ./.github/workflows/generic-deploy-image-to-server.yml
-    if: ${{ github.event.registry_package.target_commitish == 'develop' }}
+    if: ${{ github.event.registry_package.package_version.target_commitish == 'develop' }}
     with:
       hostname: "mactep.info"
       container_name: earthquake-event-reader
