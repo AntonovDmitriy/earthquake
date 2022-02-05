@@ -30,8 +30,8 @@ jobs:
     with:
       hostname: ${{ github.event.inputs.hostname }}
       container_name: ${{ github.event.inputs.container-name }}
-      full_image_path: ${{ format('{0}/{1}', github.event.inputs.docker-registry, github.event.inputs.image-with-label }}
-      repository: ${{ format('https://{0}', github.event.inputs.docker-registry }}
+      full_image_path: ${{ format('{0}/{1}', github.event.inputs.docker-registry, github.event.inputs.image-with-label) }}
+      repository: ${{ format('https://{0}', github.event.inputs.docker-registry) }}
     secrets:
       ssh_user: ${{ secrets.STAGING_SSH_USER }}
       ssh_key: ${{ secrets.STAGING_SSH_KEY }}
