@@ -12,6 +12,5 @@ public class ReaderRoute extends BaseRouteBuilder {
                 .to(httpOutFactory.create())
                 .convertBodyTo(String.class)
                 .to("log:log");
-        int a = 3;
     }
 }
