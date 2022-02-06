@@ -2,7 +2,7 @@ name: On new docker image
 
 on:
   registry_package:
-    types: [ published, updated ]
+    types: [ published ]
 
 jobs:
   debug:
