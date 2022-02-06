@@ -119,7 +119,6 @@
                 <sonar.organization>antonovdmitriy</sonar.organization>
                 <sonar.projectKey>AntonovDmitriy_earthquake</sonar.projectKey>
                 <sonar.moduleKey>${project.groupId}:${project.artifactId}</sonar.moduleKey>
-                <!--                <sonar.exclusions>${code.coverage.exclusions}</sonar.exclusions>-->
                 <sonar.report>target/site/jacoco-aggregate/jacoco.xml</sonar.report>
             </properties>
             <activation>
