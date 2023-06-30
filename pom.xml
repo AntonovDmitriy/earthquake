@@ -19,7 +19,7 @@
         <maven.compiler.target>11</maven.compiler.target>
         <jacoco-version>0.8.7</jacoco-version>
         <sonar.version>3.7.0.1746</sonar.version>
-        <bridle.version>0.0.1-SNAPSHOT</bridle.version>
+        <bridle.version>0.0.4</bridle.version>
         <jacoco.reportDirectory>${project.basedir}/../target/site/jacoco-aggregate</jacoco.reportDirectory>
     </properties>
 

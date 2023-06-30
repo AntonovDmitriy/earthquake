@@ -8,8 +8,8 @@ import org.springframework.context.annotation.Import;
 
 @SpringBootApplication
 @Configuration
-@Import({SimpleBridleConfiguration.class})
-public class App {
+@Import({AppConfiguration.class})
+public class App{
     public static void main(String[] args) {
         SpringApplication.run(App.class, args);
     }
